@@ -16,8 +16,6 @@
 
 package com.os1.camera;
 
-import com.os1.gallery.R;
-
 import static com.os1.camera.Util.Assert;
 import android.app.Activity;
 import android.content.Context;
@@ -40,7 +38,7 @@ import android.widget.Scroller;
 
 import com.os1.camera.gallery.IImage;
 import com.os1.camera.gallery.IImageList;
-import com.os1.camera.gallery.util.ViewReflecter;
+import com.os1.camera.gallery.util.ViewReflector;
 
 import java.util.HashMap;
 
@@ -48,7 +46,7 @@ class GridViewSpecial extends View {
     @SuppressWarnings("unused")
     private static final String TAG = "GridViewSpecial";
     private static final float MAX_FLING_VELOCITY = 2500;
-    private ViewReflecter mRef;
+    private ViewReflector mRef;
     public static interface Listener {
         public void onImageClicked(int index);
         public void onImageTapped(int index);
@@ -142,7 +140,7 @@ class GridViewSpecial extends View {
 
     public GridViewSpecial(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mRef = new ViewReflecter(this);
+        mRef = new ViewReflector(this);
         init(context);
     }
 
@@ -337,7 +335,7 @@ class GridViewSpecial extends View {
             setSelectedIndex(INDEX_NONE);
             mScroller = new Scroller(getContext());
 
-            mScroller.fling(0, mRef.getSrcollY(), 0, -(int) velocityY, 0, 0, 0,
+            mScroller.fling(0, mRef.getmScrollY(), 0, -(int) velocityY, 0, 0, 0,
                     mMaxScrollY);
             computeScroll();
 
@@ -437,12 +435,12 @@ class GridViewSpecial extends View {
 
         if (r.bottom > bot) {
             mScroller = new Scroller(getContext());
-            mScroller.startScroll(mRef.getSrcollX(), mRef.getSrcollY(), 0,
-                    r.bottom - getHeight() - mRef.getSrcollY(), 200);
+            mScroller.startScroll(mRef.getSrcollX(), mRef.getmScrollY(), 0,
+                    r.bottom - getHeight() - mRef.getmScrollY(), 200);
             computeScroll();
         } else if (r.top < top) {
             mScroller = new Scroller(getContext());
-            mScroller.startScroll(mRef.getSrcollX(), mRef.getSrcollY(), 0, r.top - mRef.getSrcollY(), 200);
+            mScroller.startScroll(mRef.getSrcollX(), mRef.getmScrollY(), 0, r.top - mRef.getmScrollY(), 200);
             computeScroll();
         }
     }
@@ -481,7 +479,7 @@ class GridViewSpecial extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (!canHandleEvent()) return;
-        mImageBlockManager.doDraw(canvas, getWidth(), getHeight(), mRef.getSrcollY());
+        mImageBlockManager.doDraw(canvas, getWidth(), getHeight(), mRef.getmScrollY());
         paintDecoration(canvas);
         paintSelection(canvas);
         moveDataWindow();
@@ -524,7 +522,7 @@ class GridViewSpecial extends View {
         int spacing = mSpec.mCellSpacing;
         int leftSpacing = mSpec.mLeftEdgePadding;
 
-        int row = (mRef.getSrcollY() + y - spacing) / (mSpec.mCellHeight + spacing);
+        int row = (mRef.getmScrollY() + y - spacing) / (mSpec.mCellHeight + spacing);
         int col = Math.min(mColumns - 1,
                 (x - leftSpacing) / (mSpec.mCellWidth + spacing));
         return (row * mColumns) + col;
@@ -552,7 +550,7 @@ class GridViewSpecial extends View {
 
     @Override
     public void scrollBy(int x, int y) {
-        scrollTo(mRef.getSrcollX() + x, mRef.getSrcollY() + y);
+        scrollTo(mRef.getSrcollX() + x, mRef.getmScrollY() + y);
     }
 
     public void scrollTo(float scrollPosition) {
@@ -563,7 +561,7 @@ class GridViewSpecial extends View {
     public void scrollTo(int x, int y) {
         y = Math.max(0, Math.min(mMaxScrollY, y));
         if (mSpec != null) {
-            mListener.onScroll((float) mRef.getSrcollY() / mMaxScrollY);
+            mListener.onScroll((float) mRef.getmScrollY() / mMaxScrollY);
         }
         super.scrollTo(x, y);
     }
@@ -620,7 +618,7 @@ class GridViewSpecial extends View {
                 case KeyEvent.KEYCODE_DPAD_UP:
                 case KeyEvent.KEYCODE_DPAD_DOWN:
                         int startRow =
-                                (mRef.getSrcollY() - mSpec.mCellSpacing) / mBlockHeight;
+                                (mRef.getmScrollY() - mSpec.mCellSpacing) / mBlockHeight;
                         int topPos = startRow * mColumns;
                         Rect r = getRectForPosition(topPos);
                         if (r.top < getScrollY()) {
@@ -661,8 +659,8 @@ class GridViewSpecial extends View {
         if (!mDrawAdapter.needsDecoration()) return;
 
         // Calculate visible region according to scroll position.
-        int startRow = (mRef.getSrcollY() - mSpec.mCellSpacing) / mBlockHeight;
-        int endRow = (mRef.getSrcollY() + getHeight() - mSpec.mCellSpacing - 1)
+        int startRow = (mRef.getmScrollY() - mSpec.mCellSpacing) / mBlockHeight;
+        int endRow = (mRef.getmScrollY() + getHeight() - mSpec.mCellSpacing - 1)
                 / mBlockHeight + 1;
 
         // Limit startRow and endRow to the valid range.

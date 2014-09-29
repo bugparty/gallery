@@ -19,7 +19,7 @@ package com.os1.camera;
 import com.os1.gallery.R;
 import com.os1.camera.gallery.IImage;
 import com.os1.camera.gallery.IImageList;
-import com.os1.camera.gallery.util.ViewReflecter;
+import com.os1.camera.gallery.util.ViewReflector;
 
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
@@ -86,12 +86,12 @@ public class CropImage extends MonitoredActivity {
 
     private IImageList mAllImages;
     private IImage mImage;
-    private  ViewReflecter mRef;
+    private ViewReflector mRef;
     
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        mRef = new ViewReflecter(this);
+        mRef = new ViewReflector(this);
         mContentResolver = getContentResolver();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -562,7 +562,7 @@ class CropImageView extends ImageViewTouchBase {
     HighlightView mMotionHighlightView = null;
     float mLastX, mLastY;
     int mMotionEdge;
-    private ViewReflecter mRef;
+    private ViewReflector mRef;
     @Override
     protected void onLayout(boolean changed, int left, int top,
                             int right, int bottom) {
@@ -580,7 +580,7 @@ class CropImageView extends ImageViewTouchBase {
 
     public CropImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mRef = new ViewReflecter(this);
+        mRef = new ViewReflector(this);
     }
 
     @Override

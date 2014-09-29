@@ -6,14 +6,14 @@ import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
-public class TextViewReflecter extends ViewReflecter {
-    public final static String TAG = "TextViewReflecter";
+public class TextViewReflector extends ViewReflector {
+    public final static String TAG = "TextViewReflector";
     private final static Class mTextView = TextView.class;
 
 
     private Field mX, mY;
     private Field mContext;
-    public TextViewReflecter(Object o) {
+    public TextViewReflector(Object o) {
         super(o);
         try {
 

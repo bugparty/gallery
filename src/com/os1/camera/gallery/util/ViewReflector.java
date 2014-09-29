@@ -7,15 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-public class ViewReflecter {
-    public final static String TAG = "ViewReflecter";
+public class ViewReflector {
+    public final static String TAG = "ViewReflector";
     private final static  Class mTextView = TextView.class;
     private final static Class mView = View.class;
     private Field mLeft,mRight, mTop, mBottom;
     private Field mScrollX,mScrollY;
     private Field mContext;
     protected Object ctx;
-    public ViewReflecter(Object o) {
+    public ViewReflector(Object o) {
         ctx = o;
         try {
             mLeft =  mView.getDeclaredField("mLeft");
@@ -58,7 +58,7 @@ public class ViewReflecter {
             return 0;
         }
     }
-    public int getSrcollY(){
+    public int getmScrollY(){
         try {
             return (Integer)mScrollY.get(ctx);
         } catch (IllegalAccessException e) {
