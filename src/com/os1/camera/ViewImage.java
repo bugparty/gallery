@@ -468,8 +468,8 @@ public class ViewImage extends NoSearchActivity implements View.OnClickListener 
 
         return true;
     }
-
-    @Override
+//todo:menu moved
+/*    @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         boolean b = super.onMenuItemSelected(featureId, item);
         if (mImageMenuRunnable != null) {
@@ -477,7 +477,7 @@ public class ViewImage extends NoSearchActivity implements View.OnClickListener 
                     mAllImages.getImageAt(mCurrentPosition));
         }
         return b;
-    }
+    }*/
 
     void setImage(int pos, boolean showControls) {
         mCurrentPosition = pos;

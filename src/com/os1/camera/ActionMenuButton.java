@@ -16,6 +16,8 @@
 
 package com.os1.camera;
 
+import com.os1.camera.gallery.util.TextViewReflecter;
+import com.os1.camera.gallery.util.ViewReflecter;
 import com.os1.gallery.R;
 
 import android.content.Context;
@@ -38,9 +40,10 @@ public class ActionMenuButton extends TextView {
 
     private final RectF mRect = new RectF();
     private Paint mPaint;
-
+    private TextViewReflecter mRef;
     public ActionMenuButton(Context context) {
         super(context);
+
         init();
     }
 
@@ -55,6 +58,7 @@ public class ActionMenuButton extends TextView {
     }
 
     private void init() {
+        mRef = new TextViewReflecter(this);
         setFocusable(true);
         // We need extra padding below to prevent the bubble being cut.
         setPadding(PADDING_H, 0, PADDING_H, PADDING_V);
@@ -80,10 +84,11 @@ public class ActionMenuButton extends TextView {
         rect.set(left + layout.getLineLeft(0) - PADDING_H,
                  top + layout.getLineTop(0) - PADDING_V,
                  Math.min(left + layout.getLineRight(0) + PADDING_H,
-                          mScrollX + mRight - mLeft),
+                          mRef.getSrcollX() + mRef.getRight() - mRef.getLeft()),
                  top + layout.getLineBottom(0) + PADDING_V);
         canvas.drawRoundRect(rect, CORNER_RADIUS, CORNER_RADIUS, mPaint);
 
         super.draw(canvas);
+     
     }
 }

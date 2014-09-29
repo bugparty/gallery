@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.camera;
+package com.os1.camera;
 
 import com.os1.camera.BitmapManager;
 import com.os1.camera.ImageManager;

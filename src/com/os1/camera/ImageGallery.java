@@ -16,6 +16,7 @@
 
 package com.os1.camera;
 
+import android.app.ActionBar;
 import com.os1.gallery.R;
 
 import android.app.AlertDialog;
@@ -99,20 +100,20 @@ public class ImageGallery extends NoSearchActivity implements
     private boolean mConfigurationChanged = false;
 
     private HashSet<IImage> mMultiSelected = null;
-
+    private ActionBar actionBar;
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
+        actionBar = getActionBar();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Must be called before setContentView().
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
         setContentView(R.layout.image_gallery);
 
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
-                R.layout.custom_gallery_title);
+//        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
+//                R.layout.custom_gallery_title);
 
         mNoImagesView = findViewById(R.id.no_images);
 
@@ -561,22 +562,23 @@ public class ImageGallery extends NoSearchActivity implements
         Intent intent = getIntent();
         if (intent != null) {
             String type = intent.resolveType(this);
-            TextView leftText = (TextView) findViewById(R.id.left_text);
-            if (type != null) {
+
+
+            if (type != null && actionBar!=null) {
                 if (isImageType(type)) {
                     mInclusion = ImageManager.INCLUDE_IMAGES;
                     if (isPickIntent()) {
-                        leftText.setText(R.string.pick_photos_gallery_title);
+                        actionBar.setTitle(R.string.pick_photos_gallery_title);
                     } else {
-                        leftText.setText(R.string.photos_gallery_title);
+                        actionBar.setTitle(R.string.photos_gallery_title);
                     }
                 }
                 if (isVideoType(type)) {
                     mInclusion = ImageManager.INCLUDE_VIDEOS;
                     if (isPickIntent()) {
-                        leftText.setText(R.string.pick_videos_gallery_title);
+                        actionBar.setTitle(R.string.pick_videos_gallery_title);
                     } else {
-                        leftText.setText(R.string.videos_gallery_title);
+                        actionBar.setTitle(R.string.videos_gallery_title);
                     }
                 }
             }
@@ -585,7 +587,7 @@ public class ImageGallery extends NoSearchActivity implements
                     ? extras.getString("windowTitle")
                     : null;
             if (title != null && title.length() > 0) {
-                leftText.setText(title);
+                actionBar.setTitle(title);
             }
 
             if (extras != null) {

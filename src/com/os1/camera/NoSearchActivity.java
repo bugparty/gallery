@@ -17,6 +17,7 @@
 package com.os1.camera;
 
 import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
 
 public class NoSearchActivity extends Activity {
     @Override

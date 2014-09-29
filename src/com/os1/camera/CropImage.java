@@ -17,9 +17,9 @@
 package com.os1.camera;
 
 import com.os1.gallery.R;
-
 import com.os1.camera.gallery.IImage;
 import com.os1.camera.gallery.IImageList;
+import com.os1.camera.gallery.util.ViewReflecter;
 
 import android.app.WallpaperManager;
 import android.content.ContentResolver;
@@ -86,17 +86,19 @@ public class CropImage extends MonitoredActivity {
 
     private IImageList mAllImages;
     private IImage mImage;
-
+    private  ViewReflecter mRef;
+    
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        mRef = new ViewReflecter(this);
         mContentResolver = getContentResolver();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.cropimage);
 
         mImageView = (CropImageView) findViewById(R.id.image);
-
+        
         MenuHelper.showStorageToast(this);
 
         Intent intent = getIntent();
@@ -560,7 +562,7 @@ class CropImageView extends ImageViewTouchBase {
     HighlightView mMotionHighlightView = null;
     float mLastX, mLastY;
     int mMotionEdge;
-
+    private ViewReflecter mRef;
     @Override
     protected void onLayout(boolean changed, int left, int top,
                             int right, int bottom) {
@@ -578,6 +580,7 @@ class CropImageView extends ImageViewTouchBase {
 
     public CropImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mRef = new ViewReflecter(this);
     }
 
     @Override
@@ -642,7 +645,8 @@ class CropImageView extends ImageViewTouchBase {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        CropImage cropImage = (CropImage) mContext;
+    	
+        CropImage cropImage = (CropImage) mRef.getmContext();
         if (cropImage.mSaving) {
             return false;
         }
@@ -682,7 +686,7 @@ class CropImageView extends ImageViewTouchBase {
                                 mHighlightViews.get(j).setHidden(true);
                             }
                             centerBasedOnHighlightView(hv);
-                            ((CropImage) mContext).mWaitingToPick = false;
+                            ((CropImage) mRef.getmContext()).mWaitingToPick = false;
                             return true;
                         }
                     }
@@ -737,11 +741,11 @@ class CropImageView extends ImageViewTouchBase {
     private void ensureVisible(HighlightView hv) {
         Rect r = hv.mDrawRect;
 
-        int panDeltaX1 = Math.max(0, mLeft - r.left);
-        int panDeltaX2 = Math.min(0, mRight - r.right);
+        int panDeltaX1 = Math.max(0, mRef.getLeft() - r.left);
+        int panDeltaX2 = Math.min(0, mRef.getRight() - r.right);
 
-        int panDeltaY1 = Math.max(0, mTop - r.top);
-        int panDeltaY2 = Math.min(0, mBottom - r.bottom);
+        int panDeltaY1 = Math.max(0, mRef.getTop() - r.top);
+        int panDeltaY2 = Math.min(0, mRef.getBottom() - r.bottom);
 
         int panDeltaX = panDeltaX1 != 0 ? panDeltaX1 : panDeltaX2;
         int panDeltaY = panDeltaY1 != 0 ? panDeltaY1 : panDeltaY2;

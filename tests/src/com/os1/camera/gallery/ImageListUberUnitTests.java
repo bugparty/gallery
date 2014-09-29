@@ -1,4 +1,4 @@
-package com.android.camera.gallery;
+package com.os1.camera.gallery;
 
 import com.os1.camera.ImageManager;
 
