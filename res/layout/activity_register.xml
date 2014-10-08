@@ -1,0 +1,127 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="match_parent"
+              tools:context=".RegisterActivity">
+    <!-- Register progress -->
+    <LinearLayout
+            android:id="@+id/pending_status"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+        <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+
+        <TextView
+                android:id="@+id/login_status_message"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:fontFamily="sans-serif-light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/register_progress_registering" />
+    </LinearLayout>
+
+    <!-- Register form -->
+    <ScrollView
+            android:id="@+id/register_form"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+        <LinearLayout
+                style="@style/LoginFormContainer"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
+
+
+            <EditText
+                    android:id="@+id/email"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/prompt_email"
+                    android:layout_marginTop="20dp" />
+            <EditText
+                    android:id="@+id/nickname"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="@string/prompt_nickname" />
+
+
+
+            <EditText
+
+                    android:id="@+id/password"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:inputType="textPassword"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeActionId="@+id/login"
+                    android:layout_below="@+id/text1"
+                    android:layout_alignLeft="@+id/email"
+                    android:layout_alignRight="@+id/email"
+                    android:imeOptions="actionUnspecified" />
+
+
+            <EditText
+
+                    android:id="@+id/retype_password"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_retype_password"
+                    android:inputType="textPassword"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeActionId="@+id/login"
+                    android:layout_below="@+id/text2"
+                    android:layout_alignLeft="@+id/email"
+                    android:layout_alignRight="@+id/email"
+                    android:imeOptions="actionUnspecified" />
+
+
+
+        </LinearLayout>
+        <LinearLayout
+                style="@style/LoginFormContainer"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+            <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/email"
+                    android:layout_alignLeft="@+id/email"
+                    android:layout_below="@+id/text3"
+                    android:text="注册"
+                    android:textSize="25sp" />
+        </LinearLayout>
+            </LinearLayout>
+
+
+    </ScrollView>
+
+</merge>

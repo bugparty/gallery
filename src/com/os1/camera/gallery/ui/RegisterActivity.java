@@ -2,10 +2,12 @@ package com.os1.camera.gallery.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -14,18 +16,18 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.os1.camera.GalleryPicker;
 import com.os1.camera.LogUtils;
+import com.os1.camera.gallery.util.FromEntityBuilder;
 import com.os1.gallery.R;
-import android.app.Activity;
-import android.os.Bundle;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -35,7 +37,7 @@ import java.io.InputStreamReader;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class LoginActivity extends Activity {
+public class RegisterActivity extends Activity {
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -48,7 +50,7 @@ public class LoginActivity extends Activity {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    private UserRegisterTask mAuthTask = null;
 
     // Values for email and password at the time of the login attempt.
     private String mEmail;
@@ -57,73 +59,47 @@ public class LoginActivity extends Activity {
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
-    private View mLoginFormView;
-    private View mLoginStatusView;
+    private View mRegisterFormView;
+    private View mRegisterStatusView;
+
     private TextView mLoginStatusMessageView;
     private TextView mLoginRegister;
     private TextView mLogin_password;
-    private View mUserIcon;
 
-    private String TAG = LogUtils.makeLogTag(LoginActivity.class);
+
+    private String TAG = LogUtils.makeLogTag(RegisterActivity.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_login);
-        mUserIcon = findViewById(R.id.user_icon);
-        mUserIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gotoHomeActivity();
-            }
-        });
-
-        mLoginRegister = (TextView) findViewById(R.id.login_register);
-        mLoginRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        mLogin_password = (TextView) findViewById(R.id.login_password);
-        mLogin_password.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, PasswordRecovery.class);
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.activity_register);
 
         // Set up the login form.
         mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
         mEmailView = (EditText) findViewById(R.id.email);
         mEmailView.setText(mEmail);
 
-
         mPasswordView = (EditText) findViewById(R.id.password);
-
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    attemptRegister();
                     return true;
                 }
                 return false;
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mLoginStatusView = findViewById(R.id.pending_status);
+        mRegisterFormView = findViewById(R.id.register_form);
+        mRegisterStatusView = findViewById(R.id.pending_status);
         mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnRegister).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptRegister();
             }
         });
     }
@@ -141,7 +117,7 @@ public class LoginActivity extends Activity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    public void attemptLogin() {
+    public void attemptRegister() {
 
 
         if (mAuthTask != null) {
@@ -190,7 +166,7 @@ public class LoginActivity extends Activity {
             // perform the user login attempt.
             mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
             showProgress(true);
-            mAuthTask = new UserLoginTask();
+            mAuthTask = new UserRegisterTask();
             mAuthTask.execute((Void) null);
         }
     }
@@ -206,37 +182,38 @@ public class LoginActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mLoginStatusView.setVisibility(View.VISIBLE);
-            mLoginStatusView.animate()
+            mRegisterStatusView.setVisibility(View.VISIBLE);
+            mRegisterStatusView.animate()
                     .setDuration(shortAnimTime)
                     .alpha(show ? 1 : 0)
                     .setListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
+                            mRegisterStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
                         }
                     });
 
-            mLoginFormView.setVisibility(View.VISIBLE);
-            mLoginFormView.animate()
+            mRegisterFormView.setVisibility(View.VISIBLE);
+            mRegisterFormView.animate()
                     .setDuration(shortAnimTime)
                     .alpha(show ? 0 : 1)
                     .setListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                            mRegisterFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                         }
                     });
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
-            mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mRegisterStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mRegisterFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
-    private void gotoHomeActivity() {
-        Intent intent = new Intent(LoginActivity.this, GalleryPicker.class);
+    private void gotoLoginActivity() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        intent.putExtra(EXTRA_EMAIL,mEmail);
         startActivity(intent);
     }
 
@@ -244,7 +221,7 @@ public class LoginActivity extends Activity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Integer> {
+    public class UserRegisterTask extends AsyncTask<Void, Void, Integer> {
         /**
          * 服务器
          */
@@ -256,10 +233,10 @@ public class LoginActivity extends Activity {
         //创建一个HttpResponse用于存放相应的数据
         private HttpResponse response;
         //创建一个HttpPost请求
-        private HttpGet  httpGet;
+        private HttpPost httpPost;
         //创建一个httpEntity用于存放请求的实体数据
         private HttpEntity entity;
-        private HttpParams params;
+
 
         protected Integer doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
@@ -269,18 +246,17 @@ public class LoginActivity extends Activity {
                 Uri uri = new Uri.Builder().scheme("http")
                         .authority(host)
                         .encodedPath(path)
-                        .appendQueryParameter("logineName", mEmail)
-                        .appendQueryParameter("password", mPassword)
                         .build();
                 //Log.d(TAG, "builded uri:"+uri.toString());
                 //设置请求的路径
-                httpGet = new HttpGet(uri.toString());
+                httpPost = new HttpPost(uri.toString());
                 //创建一个用户，用于向服务端发送数据时，存放的实体
-
+                UrlEncodedFormEntity fromEntity = FromEntityBuilder.create().add("logineName",mEmail)
+                        .add("password",mPassword).build();
                 //设置请求体
-
+                httpPost.setEntity(fromEntity);
                 //执行请求获取响应
-                response = httpClient.execute(httpGet);
+                response = httpClient.execute(httpPost);
                 //如果响应的状态码为200时，表示请求响应成功
                 Log.d(TAG, "post request");
                 while (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -326,7 +302,8 @@ public class LoginActivity extends Activity {
             showProgress(false);
 
             if (status == 0) {
-                gotoHomeActivity();
+                Toast.makeText(getApplicationContext(),"注册成功,请登录",Toast.LENGTH_LONG);
+                gotoLoginActivity();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

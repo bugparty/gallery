@@ -13,11 +13,19 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application android:icon="@drawable/ic_launcher_camera"
         android:theme="@android:style/Theme.Holo"
             android:label="@string/camera_label"
             android:taskAffinity="">
+        <activity android:name="com.os1.camera.gallery.ui.PasswordRecovery">
+
+        </activity>
+        <activity android:name="com.os1.camera.gallery.ui.RegisterActivity">
+
+        </activity>
         <activity android:name="com.os1.camera.gallery.ui.LoginActivity">
              <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

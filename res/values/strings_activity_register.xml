@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Strings related to login -->
+    <string name="prompt_retype_password">Retype Password</string>
+    <string name="prompt_nickname">Nickname</string>
+    <string name="register_progress_registering">Registering&#8230;</string>
+
+</resources>

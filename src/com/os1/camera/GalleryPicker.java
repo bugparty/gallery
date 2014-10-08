@@ -16,6 +16,8 @@
 
 package com.os1.camera;
 
+import android.widget.*;
+import com.os1.camera.gallery.ui.LoginActivity;
 import com.os1.gallery.R;
 
 import com.os1.camera.gallery.IImage;
@@ -55,11 +57,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem.OnMenuItemClickListener;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import java.util.ArrayList;
@@ -746,7 +743,17 @@ public class GalleryPicker extends NoSearchActivity {
                 })
                 .setAlphabeticShortcut('p')
                 .setIcon(android.R.drawable.ic_menu_preferences);
+        menu.add(Menu.NONE, Menu.NONE, MenuHelper.POSITION_USER_LOGIN,
+                "登录").setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent login = new Intent();
+                login.setClass(GalleryPicker.this, LoginActivity.class);
+                startActivity(login );
 
+                return true;
+            }
+        });
         return true;
     }
 
