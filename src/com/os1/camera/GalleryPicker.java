@@ -18,6 +18,7 @@ package com.os1.camera;
 
 import android.widget.*;
 import com.os1.camera.gallery.ui.LoginActivity;
+import com.os1.camera.gallery.ui.UploadActivity;
 import com.os1.gallery.R;
 
 import com.os1.camera.gallery.IImage;
@@ -749,6 +750,17 @@ public class GalleryPicker extends NoSearchActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 Intent login = new Intent();
                 login.setClass(GalleryPicker.this, LoginActivity.class);
+                startActivity(login );
+
+                return true;
+            }
+        });
+        menu.add(Menu.NONE, Menu.NONE, MenuHelper.POSITION_UPLOAD,
+                "照片上传").setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent login = new Intent();
+                login.setClass(GalleryPicker.this, UploadActivity.class);
                 startActivity(login );
 
                 return true;

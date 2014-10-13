@@ -88,6 +88,7 @@ public class MenuHelper {
     public static final int POSITION_CAMERA_SETTING = 15;
     public static final int POSITION_GALLERY_SETTING = 16;
     public static final int POSITION_USER_LOGIN = 17;
+    public static final int POSITION_UPLOAD = 18;
 
     public static final int NO_STORAGE_ERROR = -1;
     public static final int CANNOT_STAT_ERROR = -2;
