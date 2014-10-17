@@ -16,7 +16,7 @@
 
 package com.os1.camera;
 
-import com.os1.camera.gallery.util.TextViewReflector;
+import com.os1.gallery.util.TextViewReflector;
 import com.os1.gallery.R;
 
 import android.content.Context;

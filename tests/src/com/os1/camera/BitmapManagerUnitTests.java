@@ -16,10 +16,8 @@
 
 package com.os1.camera;
 
-import com.os1.camera.BitmapManager;
-import com.os1.camera.ImageManager;
-import com.os1.camera.gallery.IImage;
-import com.os1.camera.gallery.IImageList;
+import com.os1.gallery.IImage;
+import com.os1.gallery.IImageList;
 
 import android.content.Context;
 import android.graphics.Bitmap;

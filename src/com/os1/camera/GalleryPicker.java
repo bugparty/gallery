@@ -17,12 +17,12 @@
 package com.os1.camera;
 
 import android.widget.*;
-import com.os1.camera.gallery.ui.LoginActivity;
-import com.os1.camera.gallery.ui.UploadActivity;
+import com.os1.gallery.ui.LoginActivity;
+import com.os1.gallery.ui.UploadActivity;
 import com.os1.gallery.R;
 
-import com.os1.camera.gallery.IImage;
-import com.os1.camera.gallery.IImageList;
+import com.os1.gallery.IImage;
+import com.os1.gallery.IImageList;
 
 import android.app.Activity;
 import android.app.Dialog;

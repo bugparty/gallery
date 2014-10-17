@@ -16,8 +16,6 @@
 
 package com.os1.camera;
 
-import com.os1.gallery.R;
-
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -33,7 +31,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.os1.camera.gallery.IImage;
+import com.os1.gallery.IImage;
 
 import java.io.Closeable;
 import java.io.FileDescriptor;

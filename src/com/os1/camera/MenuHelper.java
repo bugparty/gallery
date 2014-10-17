@@ -42,7 +42,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.os1.camera.gallery.IImage;
+import com.os1.gallery.IImage;
 
 import java.io.Closeable;
 import java.io.IOException;

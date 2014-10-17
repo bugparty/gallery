@@ -16,14 +16,14 @@
 
 package com.os1.camera;
 
-import com.os1.camera.gallery.BaseImageList;
-import com.os1.camera.gallery.IImage;
-import com.os1.camera.gallery.IImageList;
-import com.os1.camera.gallery.ImageList;
-import com.os1.camera.gallery.ImageListUber;
-import com.os1.camera.gallery.SingleImageList;
-import com.os1.camera.gallery.VideoList;
-import com.os1.camera.gallery.VideoObject;
+import com.os1.gallery.BaseImageList;
+import com.os1.gallery.IImage;
+import com.os1.gallery.IImageList;
+import com.os1.gallery.ImageList;
+import com.os1.gallery.ImageListUber;
+import com.os1.gallery.SingleImageList;
+import com.os1.gallery.VideoList;
+import com.os1.gallery.VideoObject;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;

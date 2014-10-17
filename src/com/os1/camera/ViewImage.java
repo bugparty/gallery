@@ -43,9 +43,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 import android.widget.ZoomButtonsController;
 
-import com.os1.camera.gallery.IImage;
-import com.os1.camera.gallery.IImageList;
-import com.os1.camera.gallery.VideoObject;
+import com.os1.gallery.IImage;
+import com.os1.gallery.IImageList;
+import com.os1.gallery.VideoObject;
 
 import java.util.Random;
 

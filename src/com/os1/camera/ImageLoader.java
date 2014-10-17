@@ -16,7 +16,7 @@
 
 package com.os1.camera;
 
-import com.os1.camera.gallery.IImage;
+import com.os1.gallery.IImage;
 
 import android.content.ContentResolver;
 import android.graphics.Bitmap;

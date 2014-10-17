@@ -17,9 +17,9 @@
 package com.os1.camera;
 
 import com.os1.gallery.R;
-import com.os1.camera.gallery.IImage;
-import com.os1.camera.gallery.IImageList;
-import com.os1.camera.gallery.util.ViewReflector;
+import com.os1.gallery.IImage;
+import com.os1.gallery.IImageList;
+import com.os1.gallery.util.ViewReflector;
 
 import android.app.WallpaperManager;
 import android.content.ContentResolver;

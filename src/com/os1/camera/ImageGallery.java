@@ -49,17 +49,15 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.os1.camera.gallery.IImage;
-import com.os1.camera.gallery.IImageList;
-import com.os1.camera.gallery.VideoObject;
+import com.os1.gallery.IImage;
+import com.os1.gallery.IImageList;
+import com.os1.gallery.VideoObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
